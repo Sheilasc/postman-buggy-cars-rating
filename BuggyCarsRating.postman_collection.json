@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "8c63aeca-af90-49b8-843b-296e31e1a513",
+		"_postman_id": "322216dd-84f2-4d8f-8dd8-3c47b3321d55",
 		"name": "BuggyCarsRating",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "24888343"
+		"_exporter_id": "24681249"
 	},
 	"item": [
 		{
@@ -654,6 +654,19 @@
 								"ccc4u1mqnarscc72is00ng%7Cc4u1mqnarscc72is00sg"
 							]
 						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BuggyCarsRating-MainPage",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
