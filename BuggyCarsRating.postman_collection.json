@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "322216dd-84f2-4d8f-8dd8-3c47b3321d55",
+		"_postman_id": "39c0aeef-0db0-4b48-bfeb-28cac2e0a792",
 		"name": "BuggyCarsRating",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "24681249"
+		"_exporter_id": "24888343"
 	},
 	"item": [
 		{
@@ -314,59 +314,6 @@
 		{
 			"name": "BuggyCarsRating-MainPage-OverAllRating-ListOfAllRegisteredModels-Votes",
 			"item": [
-				{
-					"name": "POST Vote (200 OK)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Status code should be 200', function(){\r",
-									"    pm.response.to.have.status (200)\r",
-									"})"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"comment\": \"new vote ecm\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{schema}}://{{authority}}/{{branch}}/models/c4u1mqnarscc72is013g%7Cc4u1mqnarscc72is0160/vote",
-							"protocol": "{{schema}}",
-							"host": [
-								"{{authority}}"
-							],
-							"path": [
-								"{{branch}}",
-								"models",
-								"c4u1mqnarscc72is013g%7Cc4u1mqnarscc72is0160",
-								"vote"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "POST Vote (401 Unauthorized)",
 					"event": [
