@@ -1,0 +1,1145 @@
+{
+	"info": {
+		"_postman_id": "322216dd-84f2-4d8f-8dd8-3c47b3321d55",
+		"name": "BuggyCarsRating",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24681249"
+	},
+	"item": [
+		{
+			"name": "BuggyCarsRating-MainPage-Login",
+			"item": [
+				{
+					"name": "POST Login (200 OK)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json()\r",
+									"pm.environment.set('token', jsonData.access_token)\r",
+									"\r",
+									"pm.test('Status code should be 200', function(){\r",
+									"    pm.response.to.have.status (200)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "grant_type=password&username=TestNew&password=Control123!",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/oauth/token",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Login (401 Unauthorized)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 401', function(){\r",
+									"    pm.response.to.have.status (401)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "grant_type=password&username=Test&password=Control123!"
+						},
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/oauth/token",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Login (400 BadRequest)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 400', function(){\r",
+									"    pm.response.to.have.status (400)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "s",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/oauth/token",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET  Current User (200 OK)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 200', function(){\r",
+									"    pm.response.to.have.status (200)\r",
+									"})\r",
+									"pm.test(\"firstName matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"test22\");\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/users/current",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"users",
+								"current"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET  Current User (401 Unauthorized)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 401', function(){\r",
+									"    pm.response.to.have.status (401)\r",
+									"})\r",
+									"pm.test(\"Message of the response matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not authorized\");\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokens}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/users/current",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"users",
+								"current"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BuggyCarsRating-MainPage-OverAllRating-ListOfAllRegisteredModels-More",
+			"item": [
+				{
+					"name": "GET Models More (200 OK)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 200', function(){\r",
+									"    pm.response.to.have.status (200)\r",
+									"})\r",
+									"pm.test(\"Name of the response matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Guilia Quadrifoglio\");\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/models/c4u1mqnarscc72is00ng%7Cc4u1mqnarscc72is00sg",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"models",
+								"c4u1mqnarscc72is00ng%7Cc4u1mqnarscc72is00sg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Models More (404 NotFound)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 404', function(){\r",
+									"    pm.response.to.have.status (404)\r",
+									"})\r",
+									"pm.test(\"Name of the response matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/models/xxc4u1mqnarscc72is00ng%7Cc4u1mqnarscc72is00sg",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"models",
+								"xxc4u1mqnarscc72is00ng%7Cc4u1mqnarscc72is00sg"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BuggyCarsRating-MainPage-OverAllRating-ListOfAllRegisteredModels-Votes",
+			"item": [
+				{
+					"name": "POST Vote (200 OK)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 200', function(){\r",
+									"    pm.response.to.have.status (200)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"comment\": \"new vote ecm\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/models/c4u1mqnarscc72is013g%7Cc4u1mqnarscc72is0160/vote",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"models",
+								"c4u1mqnarscc72is013g%7Cc4u1mqnarscc72is0160",
+								"vote"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Vote (401 Unauthorized)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 401', function(){\r",
+									"    pm.response.to.have.status (401)\r",
+									"})\r",
+									"pm.test(\"Message of the response matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not authorized\");\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokens}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"comment\": \"new vote ecm\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/models/c4u1mqnarscc72is013g%7Cc4u1mqnarscc72is0160/vote",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"models",
+								"c4u1mqnarscc72is013g%7Cc4u1mqnarscc72is0160",
+								"vote"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Vote (404 NotFound)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 404', function(){\r",
+									"    pm.response.to.have.status (404)\r",
+									"})\r",
+									"pm.test(\"Message of the response matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokens}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"comment\": \"new vote ecm\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/models/c4u1mqnarscc72is013g%7Cc4u1mqnarscc72is0160/voted",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"models",
+								"c4u1mqnarscc72is013g%7Cc4u1mqnarscc72is0160",
+								"voted"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BuggyCarsRating-MainPage-PopularMake-AlfaRomeo",
+			"item": [
+				{
+					"name": "GET Model Page 1 (200 OK)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 200', function(){\r",
+									"    pm.response.to.have.status (200)\r",
+									"})\r",
+									"pm.test(\"Name of the response matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Alfa Romeo\");\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/makes/c4u1mqnarscc72is00ng?modelsPage=1",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"makes",
+								"c4u1mqnarscc72is00ng"
+							],
+							"query": [
+								{
+									"key": "modelsPage",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Model Page 1 (404 NotFound)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 404', function(){\r",
+									"    pm.response.to.have.status (404)\r",
+									"})\r",
+									"pm.test(\"Message of the response matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/makes/vvc4u1mqnarscc72is00ng?modelsPage=1",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"makes",
+								"vvc4u1mqnarscc72is00ng"
+							],
+							"query": [
+								{
+									"key": "modelsPage",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BuggyCarsRating-MainPage-PopularModel- AlfaRomeoGuiliaQuadrifoglio",
+			"item": [
+				{
+					"name": "GET Models (200 OK)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 200', function(){\r",
+									"    pm.response.to.have.status (200)\r",
+									"})\r",
+									"pm.test(\"Name of the response matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Guilia Quadrifoglio\");\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/models/c4u1mqnarscc72is00ng%7Cc4u1mqnarscc72is00sg",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"models",
+								"c4u1mqnarscc72is00ng%7Cc4u1mqnarscc72is00sg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Models (404 NotFound)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 404', function(){\r",
+									"    pm.response.to.have.status (404)\r",
+									"})\r",
+									"pm.test(\"Name of the response matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/models/ccc4u1mqnarscc72is00ng%7Cc4u1mqnarscc72is00sg",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"models",
+								"ccc4u1mqnarscc72is00ng%7Cc4u1mqnarscc72is00sg"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BuggyCarsRating-MainPage",
+			"item": [
+				{
+					"name": "GET Main Page (200 OK)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code shoild be 200', function(){\r",
+									"    pm.response.to.have.status(200)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/dashboard",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"dashboard"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Main Page (403 Forbidden)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code shoild be 403', function(){\r",
+									"    pm.response.to.have.status(403)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"make\": {\r\n        \"id\": \"c4u1mqnarscc72is\",\r\n        \"name\": \"Alfa Romeo\",\r\n        \"image\": \"AR-logo.jpg\",\r\n        \"votes\": 9262\r\n    },\r\n    \"model\": {\r\n        \"id\": \"c4u1mqnarscc72is00ng|c4u1mqnarscc72is\",\r\n        \"make\": \"Alfa Romeo\",\r\n        \"name\": \"Guilia Quadrifoglio\",\r\n        \"image\": \"giulia.png\",\r\n        \"votes\": 3944\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/dashboard",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"dashboard"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BuggyCarsRating-MainPage-PopularMake-AlfaRomeo-OrderByModel",
+			"item": [
+				{
+					"name": "GET Model Order by (200 OK)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 200', function(){\r",
+									"    pm.response.to.have.status (200)\r",
+									"})\r",
+									"pm.test(\"Name of the response matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Lamborghini\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/makes/c4u1mqnarscc72is00e0?modelsPage=1&modelsOrderBy=random",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"makes",
+								"c4u1mqnarscc72is00e0"
+							],
+							"query": [
+								{
+									"key": "modelsPage",
+									"value": "1"
+								},
+								{
+									"key": "modelsOrderBy",
+									"value": "random"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Model Order by (404 NotFound)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 404', function(){\r",
+									"    pm.response.to.have.status (404)\r",
+									"})\r",
+									"pm.test(\"Message of the response matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/makes/ssc4u1mqnarscc72is00e0?modelsPage=1&modelsOrderBy=random",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"makes",
+								"ssc4u1mqnarscc72is00e0"
+							],
+							"query": [
+								{
+									"key": "modelsPage",
+									"value": "1"
+								},
+								{
+									"key": "modelsOrderBy",
+									"value": "random"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BuggyCarsRating-MainPage-OverAllRating-ListOfAllRegisteredModels",
+			"item": [
+				{
+					"name": "GET List Registered Models (200 OK)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 200', function(){\r",
+									"    pm.response.to.have.status (200)\r",
+									"})\r",
+									"pm.test(\"Name of the response matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Guilia Quadrifoglio\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/models?page=1",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"models"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET List Registered Models (404 NotFound)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 404', function(){\r",
+									"    pm.response.to.have.status (404)\r",
+									"})\r",
+									"pm.test(\"Message of the response matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/aamodels?page=1",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"aamodels"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BuggyCarsRating-MainPage-OverAllRating-ListOfAllRegisteredModels-Order",
+			"item": [
+				{
+					"name": "GET List Models Order By Make (200 OK)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 200', function(){\r",
+									"    pm.response.to.have.status (200)\r",
+									"})\r",
+									"pm.test(\"Make should be show\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"make\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/models?page=1&orderBy=make",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"models"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "orderBy",
+									"value": "make"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET List Models Order By Name (200 OK)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 200', function(){\r",
+									"    pm.response.to.have.status (200)\r",
+									"})\r",
+									"pm.test(\"Name of the response matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"4c Spider\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/models?page=1&orderBy=name",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"models"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "orderBy",
+									"value": "name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET List Models Order By Make (404 NotFound)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 404', function(){\r",
+									"    pm.response.to.have.status (404)\r",
+									"})\r",
+									"pm.test(\"Message of the response matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/aamodels?page=1&orderBy=make",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"aamodels"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "orderBy",
+									"value": "make"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET List Models Order By Name (404 NotFound)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code should be 404', function(){\r",
+									"    pm.response.to.have.status (404)\r",
+									"})\r",
+									"pm.test(\"Message of the response matches\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{schema}}://{{authority}}/{{branch}}/aamodels?page=1&orderBy=name",
+							"protocol": "{{schema}}",
+							"host": [
+								"{{authority}}"
+							],
+							"path": [
+								"{{branch}}",
+								"aamodels"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "orderBy",
+									"value": "name"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
